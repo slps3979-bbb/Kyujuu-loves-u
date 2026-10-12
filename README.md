@@ -1,1 +1,1 @@
-# Kyukyu-loves-u
+# Kyujuu-loves-u
