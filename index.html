@@ -296,6 +296,7 @@
             flex-shrink: 0;
             z-index: 3;
             letter-spacing: -0.2px;
+            outline: none;
         }
 
         .item-details {
@@ -329,6 +330,7 @@
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04);
             margin-top: 3px;
+            outline: none;
         }
 
         .inline-note {
@@ -338,12 +340,13 @@
             display: block;
             width: 100%;
             margin-top: 1px;
+            outline: none;
         }
 
         /* 🏷️ 標籤顏色定義 */
-        .tag-hotel { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; } /* 旅館：綠色 */
-        .tag-sight { background: rgba(226, 214, 238, 0.85); color: #5b3a82; border: 1px solid #d4c2e8; } /* 景點/百貨：紫色 */
-        .tag-shop { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; } /* 其他：藍色 */
+        .tag-hotel { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .tag-sight { background: rgba(226, 214, 238, 0.85); color: #5b3a82; border: 1px solid #d4c2e8; }
+        .tag-shop { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
 
         /* 車站果凍卡片 */
         .transit-jelly-card {
@@ -514,17 +517,16 @@
           
         <div class="day-content">
             <div class="timeline-list">
-<div class="timeline-item">
-                    <div class="time-badge">12:30</div>
+                <div class="timeline-item">
+                    <div class="time-badge" id="d1-time-1" contenteditable="true" onblur="saveData('d1-time-1')">12:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">✈️</span> 出關後搭計程車至博多車站 </div>
-                        <span class="inline-note"> 午餐可選shinshin或其他 </span>
+                        <span class="inline-note" id="d1-note-1" contenteditable="true" onblur="saveData('d1-note-1')"> 午餐可選shinshin或其他 </span>
                     </div>
                 </div>
 
-                
                 <div class="timeline-item">
-                    <div class="time-badge">14:38</div>
+                    <div class="time-badge" id="d1-time-2" contenteditable="true" onblur="saveData('d1-time-2')">14:38</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🚆</span> 博多 ➔ 由布院 </div>
                         <div class="transit-jelly-card">
@@ -538,7 +540,7 @@
                                             <path d="M12 7 L8 14 M12 7 L16 14" stroke-width="2" stroke-linecap="round" fill="none"/>
                                         </svg>
                                     </button>
-                                    <input type="text" class="jelly-input input-time-text" value="14:38 發 ➔ 16:50 到" placeholder="時間標示">
+                                    <input type="text" id="d1-transit-input-1" class="jelly-input input-time-text" value="14:38 發 ➔ 16:50 到" placeholder="時間標示" onchange="saveInputValue('d1-transit-input-1')">
                                 </div>
                                 <button class="backup-btn" onclick="openModal('博多 ➔ 由布院 備用班次', ['14:42 發 ➔ 17:45 到 (新幹線+特急+普通)', '15:15 發 ➔ 18:23 到 (新幹線+特急+普通)'])">
                                     <svg class="clock-icon" viewBox="0 0 24 24">
@@ -547,54 +549,54 @@
                                 </button>
                             </div>
                             <div class="transit-expand-content">
-                                <div class="jelly-scroll-text" contenteditable="true">🌲 JR 特急 由布院之森，建議尋找月台搭乘</div>
+                                <div id="d1-platform-1" class="jelly-scroll-text" contenteditable="true" onblur="saveData('d1-platform-1')">🌲 JR 特急 由布院之森，建議尋找月台搭乘</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">16:50</div>
+                    <div class="time-badge" id="d1-time-3" contenteditable="true" onblur="saveData('d1-time-3')">16:50</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">17:15</div>
+                    <div class="time-badge" id="d1-time-4" contenteditable="true" onblur="saveData('d1-time-4')">17:15</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 湯布院花卉村</div>
-                        <span class="item-duration tag-sight">停留 2 小時</span>
+                        <span class="item-duration tag-sight" id="d1-note-4" contenteditable="true" onblur="saveData('d1-note-4')">停留 2 小時</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">17:45</div>
+                    <div class="time-badge" id="d1-time-5" contenteditable="true" onblur="saveData('d1-time-5')">17:45</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🛒</span> A-COOP超市 湯布院店</div>
-                        <span class="item-duration tag-shop"> 營業時間到晚上 7:00 </span>
+                        <span class="item-duration tag-shop" id="d1-note-5" contenteditable="true" onblur="saveData('d1-note-5')"> 營業時間到晚上 7:00 </span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">18:30</div>
+                    <div class="time-badge" id="d1-time-6" contenteditable="true" onblur="saveData('d1-time-6')">18:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
-                        <span class="item-duration tag-hotel">預約 10/28 計程車 8:15 出發，10/29 釜心飯訂位</span>
+                        <span class="item-duration tag-hotel" id="d1-note-6a" contenteditable="true" onblur="saveData('d1-note-6a')">預約 10/28 計程車 8:15 出發，10/29 釜心飯訂位</span>
                         <br>
-                        <span class="item-duration tag-hotel">晚上 7:00 前回飯店用晚餐</span>
+                        <span class="item-duration tag-hotel" id="d1-note-6b" contenteditable="true" onblur="saveData('d1-note-6b')">晚上 7:00 前回飯店用晚餐</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">19:00</div>
+                    <div class="time-badge" id="d1-time-7" contenteditable="true" onblur="saveData('d1-time-7')">19:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍱</span> 由布院別邸 樹 (獨棟Villa) (晚餐時間)</div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">20:30</div>
+                    <div class="time-badge" id="d1-time-8" contenteditable="true" onblur="saveData('d1-time-8')">20:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏪</span> 7-11 Yufuin Yunotsubo</div>
                     </div>
@@ -612,198 +614,73 @@
         <div class="day-content">
             <div class="timeline-list">
                 <div class="timeline-item">
-                    <div class="time-badge">07:30</div>
+                    <div class="time-badge" id="d2-time-1" contenteditable="true" onblur="saveData('d2-time-1')">07:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
-                        <span class="item-duration tag-hotel">吃完早餐8:15坐計程車</span>
+                        <span class="item-duration tag-hotel" id="d2-note-1" contenteditable="true" onblur="saveData('d2-note-1')">吃完早餐8:15坐計程車</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">08:57</div>
+                    <div class="time-badge" id="d2-time-2" contenteditable="true" onblur="saveData('d2-time-2')">08:57</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🦁</span> 九州自然動物園</div>
-                        <span class="item-duration tag-sight">門票大人/叢林列車大人分開買</span>
+                        <span class="item-duration tag-sight" id="d2-note-2" contenteditable="true" onblur="saveData('d2-note-2')">門票大人/叢林列車大人分開買</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">11:39</div>
+                    <div class="time-badge" id="d2-time-3" contenteditable="true" onblur="saveData('d2-time-3')">11:39</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🚌</span> 九州叢林列車 Jungle bus</div>
-                        <span class="item-duration tag-sight">全程近1小時</span>
+                        <span class="item-duration tag-sight" id="d2-note-3" contenteditable="true" onblur="saveData('d2-note-3')">全程近1小時</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">13:00</div>
+                    <div class="time-badge" id="d2-time-4" contenteditable="true" onblur="saveData('d2-time-4')">13:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🦁</span> 九州自然動物園</div>
-                        <span class="item-duration tag-sight">園內常設專區逛逛，有餐車可以選擇</span>
+                        <span class="item-duration tag-sight" id="d2-note-4" contenteditable="true" onblur="saveData('d2-note-4')">園內常設專區逛逛，有餐車可以選擇</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">14:30</div>
+                    <div class="time-badge" id="d2-time-5" contenteditable="true" onblur="saveData('d2-time-5')">14:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
-                        <span class="item-duration tag-hotel">步行至湯之坪步道約10分鐘</span>
+                        <span class="item-duration tag-hotel" id="d2-note-5" contenteditable="true" onblur="saveData('d2-note-5')">步行至湯之坪步道約10分鐘</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">15:00</div>
+                    <div class="time-badge" id="d2-time-6" contenteditable="true" onblur="saveData('d2-time-6')">15:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍰</span> 蛋糕卷 B SPEAK 本店</div>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="time-badge">15:25</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍹</span> 湯布院Mana Mana</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">15:35</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🌰</span> Donguri No Mori (橡子共和國)</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">15:55</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍩</span> 布丁.甜甜圈 Milch Donut&Cafe</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">16:10</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">☕</span> 鞠智 cucuchi（銅鑼燒和咖啡館）</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">16:25</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍦</span> telato 抹茶ジェラート専門店</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">16:40</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍋</span> レモネード&スイーツlimo</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">16:50</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🥔</span> 金賞可樂餅 本店</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">17:00</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🌶️</span> 調味料 湯布院薬味家</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">17:10</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🎁</span> 名產店 GOEMON</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">17:20</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍮</span> 烏骨雞蛋布丁 五衛門</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">17:30</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🐙</span> 大章魚燒 ばくだん焼本舗</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">17:45</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍗</span> 中津からあげ吉吾 湯布院店</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">18:00</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🌾</span> 湯布院長壽畑湯之坪店</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">18:10</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍦</span> 由布院霜淇淋</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">18:20</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🥤</span> GABUGABU</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">18:30</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🎁</span> Souvenir Gallery YUFUIN</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">18:45</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🐰</span> Miffy森之廚房</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">19:00</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍫</span> SNOOPYChocolat 由布院店</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">19:15</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🥢</span> 箸屋一膳／金鱗湖店</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">19:30</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🧂</span> 鍵屋 柚子胡椒</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge">19:45</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍄</span> 湯布院shiitakemonster</div>
-                    </div>
-                </div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-7" contenteditable="true" onblur="saveData('d2-time-7')">15:25</div><div class="item-details"><div class="item-title"><span class="item-icon">🍹</span> 湯布院Mana Mana</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-8" contenteditable="true" onblur="saveData('d2-time-8')">15:35</div><div class="item-details"><div class="item-title"><span class="item-icon">🌰</span> Donguri No Mori (橡子共和國)</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-9" contenteditable="true" onblur="saveData('d2-time-9')">15:55</div><div class="item-details"><div class="item-title"><span class="item-icon">🍩</span> 布丁.甜甜圈 Milch Donut&Cafe</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-10" contenteditable="true" onblur="saveData('d2-time-10')">16:10</div><div class="item-details"><div class="item-title"><span class="item-icon">☕</span> 鞠智 cucuchi（銅鑼燒和咖啡館）</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-11" contenteditable="true" onblur="saveData('d2-time-11')">16:25</div><div class="item-details"><div class="item-title"><span class="item-icon">🍦</span> telato 抹茶ジェラート専門店</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-12" contenteditable="true" onblur="saveData('d2-time-12')">16:40</div><div class="item-details"><div class="item-title"><span class="item-icon">🍋</span> レモネード&スイーツlimo</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-13" contenteditable="true" onblur="saveData('d2-time-13')">16:50</div><div class="item-details"><div class="item-title"><span class="item-icon">🥔</span> 金賞可樂餅 本店</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-14" contenteditable="true" onblur="saveData('d2-time-14')">17:00</div><div class="item-details"><div class="item-title"><span class="item-icon">🌶️</span> 調味料 湯布院薬味家</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-15" contenteditable="true" onblur="saveData('d2-time-15')">17:10</div><div class="item-details"><div class="item-title"><span class="item-icon">🎁</span> 名產店 GOEMON</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-16" contenteditable="true" onblur="saveData('d2-time-16')">17:20</div><div class="item-details"><div class="item-title"><span class="item-icon">🍮</span> 烏骨雞蛋布丁 五衛門</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-17" contenteditable="true" onblur="saveData('d2-time-17')">17:30</div><div class="item-details"><div class="item-title"><span class="item-icon">🐙</span> 大章魚燒 ばくだん焼本舗</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-18" contenteditable="true" onblur="saveData('d2-time-18')">17:45</div><div class="item-details"><div class="item-title"><span class="item-icon">🍗</span> 中津からあげ吉吾 湯布院店</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-19" contenteditable="true" onblur="saveData('d2-time-19')">18:00</div><div class="item-details"><div class="item-title"><span class="item-icon">🌾</span> 湯布院長壽畑湯之坪店</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-20" contenteditable="true" onblur="saveData('d2-time-20')">18:10</div><div class="item-details"><div class="item-title"><span class="item-icon">🍦</span> 由布院霜淇淋</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-21" contenteditable="true" onblur="saveData('d2-time-21')">18:20</div><div class="item-details"><div class="item-title"><span class="item-icon">🥤</span> GABUGABU</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-22" contenteditable="true" onblur="saveData('d2-time-22')">18:30</div><div class="item-details"><div class="item-title"><span class="item-icon">🎁</span> Souvenir Gallery YUFUIN</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-23" contenteditable="true" onblur="saveData('d2-time-23')">18:45</div><div class="item-details"><div class="item-title"><span class="item-icon">🐰</span> Miffy森之廚房</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-24" contenteditable="true" onblur="saveData('d2-time-24')">19:00</div><div class="item-details"><div class="item-title"><span class="item-icon">🍫</span> SNOOPYChocolat 由布院店</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-25" contenteditable="true" onblur="saveData('d2-time-25')">19:15</div><div class="item-details"><div class="item-title"><span class="item-icon">🥢</span> 箸屋一膳／金鱗湖店</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-26" contenteditable="true" onblur="saveData('d2-time-26')">19:30</div><div class="item-details"><div class="item-title"><span class="item-icon">🧂</span> 鍵屋 柚子胡椒</div></div></div>
+                <div class="timeline-item"><div class="time-badge" id="d2-time-27" contenteditable="true" onblur="saveData('d2-time-27')">19:45</div><div class="item-details"><div class="item-title"><span class="item-icon">🍄</span> 湯布院shiitakemonster</div></div></div>
             </div>
         </div>
     </div>
@@ -817,56 +694,55 @@
         <div class="day-content">
             <div class="timeline-list">
                 <div class="timeline-item">
-                    <div class="time-badge">08:00</div>
+                    <div class="time-badge" id="d3-time-1" contenteditable="true" onblur="saveData('d3-time-1')">08:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
-                           <span class="item-duration tag-sight">吃完早餐預約馬車，12點再退房寄放行李</span>
-                    </div>
-                 </div>
-
- <div class="timeline-item">
-                    <div class="time-badge">09:00</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🍱</span> 由布院遊客中心 </div>
-                        <span class="item-duration tag-sight"> 8:50開始預約 </span>
+                        <span class="item-duration tag-sight" id="d3-note-1" contenteditable="true" onblur="saveData('d3-note-1')">吃完早餐預約馬車，12點再退房寄放行李</span>
                     </div>
                 </div>
-
 
                 <div class="timeline-item">
-                    <div class="time-badge">12:00</div>
+                    <div class="time-badge" id="d3-time-2" contenteditable="true" onblur="saveData('d3-time-2')">09:00</div>
+                    <div class="item-details">
+                        <div class="item-title"><span class="item-icon">🍱</span> 由布院遊客中心 </div>
+                        <span class="item-duration tag-sight" id="d3-note-2" contenteditable="true" onblur="saveData('d3-note-2')"> 8:50開始預約 </span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-badge" id="d3-time-3" contenteditable="true" onblur="saveData('d3-time-3')">12:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍱</span> 由布釜飯 「心」湯布院站前店</div>
-                        <span class="item-duration tag-shop">必點牛跟地雞</span>
+                        <span class="item-duration tag-shop" id="d3-note-3" contenteditable="true" onblur="saveData('d3-note-3')">必點牛跟地雞</span>
                     </div>
                 </div>
 
-<div class="timeline-item">
-                    <div class="time-badge">13:00</div>
+                <div class="timeline-item">
+                    <div class="time-badge" id="d3-time-4" contenteditable="true" onblur="saveData('d3-time-4')">13:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍱</span> 由布院觀光辻馬車 </div>
-                        <span class="item-duration tag-shop"> 遊客中心集合搭車全程1小時 </span>
+                        <span class="item-duration tag-shop" id="d3-note-4" contenteditable="true" onblur="saveData('d3-note-4')"> 遊客中心集合搭車全程1小時 </span>
                     </div>
                 </div>
 
-<div class="timeline-item">
-                    <div class="time-badge">14:00</div>
+                <div class="timeline-item">
+                    <div class="time-badge" id="d3-time-5" contenteditable="true" onblur="saveData('d3-time-5')">14:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍱</span> 由布院小店巡禮 </div>
-                        <span class="item-duration tag-shop"> 想去的店再好好逛逛 </span>
+                        <span class="item-duration tag-shop" id="d3-note-5" contenteditable="true" onblur="saveData('d3-note-5')"> 想去的店再好好逛逛 </span>
                     </div>
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="time-badge">15:30</div>
+                    <div class="time-badge" id="d3-time-6" contenteditable="true" onblur="saveData('d3-time-6')">15:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🧳</span> 名產店 日乃新</div>
-                        <span class="item-duration tag-shop"> 別邸樹取行李至由布院站附近逛逛 </span>
+                        <span class="item-duration tag-shop" id="d3-note-6" contenteditable="true" onblur="saveData('d3-note-6')"> 別邸樹取行李至由布院站附近逛逛 </span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">15:56</div>
+                    <div class="time-badge" id="d3-time-7" contenteditable="true" onblur="saveData('d3-time-7')">15:56</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🚆</span> 由布院 ➔ 博多 (由布院之森)</div>
                         <div class="transit-jelly-card">
@@ -880,7 +756,7 @@
                                             <path d="M12 7 L8 14 M12 7 L16 14" stroke-width="2" stroke-linecap="round" fill="none"/>
                                         </svg>
                                     </button>
-                                    <input type="text" class="jelly-input input-time-text" value="15:56 發 ➔ 18:10 到" placeholder="時間標示">
+                                    <input type="text" id="d3-transit-input-1" class="jelly-input input-time-text" value="15:56 發 ➔ 18:10 到" placeholder="時間標示" onchange="saveInputValue('d3-transit-input-1')">
                                 </div>
                                 <button class="backup-btn" onclick="openModal('由布院 ➔ 博多 備用班次', ['16:01 發 ➔ 19:09 到 (普通+特急+新幹線)', '17:17 發 ➔ 19:27 到 (由布院之森6號)'])">
                                     <svg class="clock-icon" viewBox="0 0 24 24">
@@ -889,56 +765,56 @@
                                 </button>
                             </div>
                             <div class="transit-expand-content">
-                                <div class="jelly-scroll-text" contenteditable="true">🌲 JR 特急 由布院之森 ‧ 1號月台發車</div>
+                                <div id="d3-platform-1" class="jelly-scroll-text" contenteditable="true" onblur="saveData('d3-platform-1')">🌲 JR 特急 由布院之森 ‧ 1號月台發車</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">18:20</div>
+                    <div class="time-badge" id="d3-time-8" contenteditable="true" onblur="saveData('d3-time-8')">18:20</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🛍️</span> AMU PLAZA博多 / MING採買</div>
-                        <span class="item-duration tag-sight"> Traditional Weatherwear (AMU 3F) </span>
+                        <span class="item-duration tag-sight" id="d3-note-8a" contenteditable="true" onblur="saveData('d3-note-8a')"> Traditional Weatherwear (AMU 3F) </span>
                         <br>
-                         <span class="item-duration tag-sight"> AMU到20點，MING到21點 </span>
+                        <span class="item-duration tag-sight" id="d3-note-8b" contenteditable="true" onblur="saveData('d3-note-8b')"> AMU到20點，MING到21點 </span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">19:50</div>
+                    <div class="time-badge" id="d3-time-9" contenteditable="true" onblur="saveData('d3-time-9')">19:50</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏨</span> 博多三井花園飯店</div>
-                        <span class="item-duration tag-hotel">搭七隈線至櫛田神社站步行3分鐘</span>
+                        <span class="item-duration tag-hotel" id="d3-note-9" contenteditable="true" onblur="saveData('d3-note-9')">搭七隈線至櫛田神社站步行3分鐘</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">20:15</div>
+                    <div class="time-badge" id="d3-time-10" contenteditable="true" onblur="saveData('d3-time-10')">20:15</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🐧</span> 唐吉訶德 福岡天神本店</div>
-                        <span class="item-duration tag-shop">預計2小時</span>
+                        <span class="item-duration tag-shop" id="d3-note-10" contenteditable="true" onblur="saveData('d3-note-10')">預計2小時</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">22:30</div>
+                    <div class="time-badge" id="d3-time-11" contenteditable="true" onblur="saveData('d3-time-11')">22:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍜</span> 中洲屋台 / 附近拉麵餐廳</div>
-                        <span class="inline-note"> 晚餐時間 </span>
+                        <span class="inline-note" id="d3-note-11" contenteditable="true" onblur="saveData('d3-note-11')"> 晚餐時間 </span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">22:50</div>
+                    <div class="time-badge" id="d3-time-12" contenteditable="true" onblur="saveData('d3-time-12')">22:50</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍮</span> 瑞穗茶碗蒸</div>
-                        <span class="inline-note"> 最後點餐時間 23:00 </span>
+                        <span class="inline-note" id="d3-note-12" contenteditable="true" onblur="saveData('d3-note-12')"> 最後點餐時間 23:00 </span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">23:10</div>
+                    <div class="time-badge" id="d3-time-13" contenteditable="true" onblur="saveData('d3-time-13')">23:10</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏨</span> 博多三井花園飯店 Mitsui Garden HOTEL</div>
                     </div>
@@ -956,116 +832,113 @@
         <div class="day-content">
             <div class="timeline-list">
                 <div class="timeline-item">
-                    <div class="time-badge">10:00</div>
+                    <div class="time-badge" id="d4-time-1" contenteditable="true" onblur="saveData('d4-time-1')">10:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏨</span> 博多三井花園飯店 Mitsui Garden HOTEL</div>
-                        <span class="item-duration tag-hotel"> 寄放行李 check out </span>
+                        <span class="item-duration tag-hotel" id="d4-note-1" contenteditable="true" onblur="saveData('d4-note-1')"> 寄放行李 check out </span>
                     </div>
                 </div>
- <div class="timeline-item">
-                    <div class="time-badge">10:30</div>
+
+                <div class="timeline-item">
+                    <div class="time-badge" id="d4-time-2" contenteditable="true" onblur="saveData('d4-time-2')">10:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">⛩️</span> 櫛田神社 </div>
-                        <span class="item-duration tag-sight"> 步行10分鐘，從中洲川端商店街穿越抵達 </span>
+                        <span class="item-duration tag-sight" id="d4-note-2" contenteditable="true" onblur="saveData('d4-note-2')"> 步行10分鐘，從中洲川端商店街穿越抵達 </span>
                     </div>
                 </div>
-                
 
                 <div class="timeline-item">
-                    <div class="time-badge">11:20</div>
+                    <div class="time-badge" id="d4-time-3" contenteditable="true" onblur="saveData('d4-time-3')">11:20</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏬</span> 大丸 福岡天神店</div>
-                        <span class="item-duration tag-sight"> 櫛田神社站搭至天神南站4分鐘，買 Clarks </span>
+                        <span class="item-duration tag-sight" id="d4-note-3" contenteditable="true" onblur="saveData('d4-note-3')"> 櫛田神社站搭至天神南站4分鐘，買 Clarks </span>
                     </div>
                 </div>
 
-
                 <div class="timeline-item">
-                    <div class="time-badge">11:40</div>
+                    <div class="time-badge" id="d4-time-4" contenteditable="true" onblur="saveData('d4-time-4')">11:40</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍜</span> 麵屋兼虎 福岡PARCO店</div>
-                        <span class="item-duration tag-shop"> 步行4分鐘，可選地下街，逛PARCO</span>
+                        <span class="item-duration tag-shop" id="d4-note-4" contenteditable="true" onblur="saveData('d4-note-4')"> 步行4分鐘，可選地下街，逛PARCO</span>
                     </div>
                 </div>
 
-<div class="timeline-item">
-                    <div class="time-badge">13:00</div>
+                <div class="timeline-item">
+                    <div class="time-badge" id="d4-time-5" contenteditable="true" onblur="saveData('d4-time-5')">13:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🥖</span> Full full</div>
-                         <span class="item-duration tag-shop">提前用LINE預約麵包或人少再買其他的</span>
-                      </br>
-                         <span class="item-duration tag-shop">PARCO步行5分鐘</span>
+                        <span class="item-duration tag-shop" id="d4-note-5a" contenteditable="true" onblur="saveData('d4-note-5a')">提前用LINE預約麵包或人少再買其他的</span>
+                        <br>
+                        <span class="item-duration tag-shop" id="d4-note-5b" contenteditable="true" onblur="saveData('d4-note-5b')">PARCO步行5分鐘</span>
                     </div>
                 </div>
-                
-   <div class="timeline-item">
-    <div class="time-badge">14:00</div>
-    <div class="item-details">
-        <div class="item-title"><span class="item-icon">🏨</span> 福岡休雷蓋特酒店 The Gate HOTEL Fukuoka</div>
-        <span class="item-duration tag-hotel">三井拿行李以後 check in</span>
-    </div>
-</div>
 
-<div class="timeline-item">
-    <div class="time-badge">14:20</div>
-    <div class="item-details">
-        <div class="item-title"><span class="item-icon">🛍️</span> 天神地下街</div>
-        <span class="item-duration tag-shop">購物清單:</span>
-    </div>
-</div>
+                <div class="timeline-item">
+                    <div class="time-badge" id="d4-time-6" contenteditable="true" onblur="saveData('d4-time-6')">14:00</div>
+                    <div class="item-details">
+                        <div class="item-title"><span class="item-icon">🏨</span> 福岡休雷蓋特酒店 The Gate HOTEL Fukuoka</div>
+                        <span class="item-duration tag-hotel" id="d4-note-6" contenteditable="true" onblur="saveData('d4-note-6')">三井拿行李以後 check in</span>
+                    </div>
+                </div>
 
-<div class="timeline-item">
-    <div class="time-badge">14:45</div>
-    <div class="item-details">
-        <div class="item-title"><span class="item-icon">💊</span> 大國藥妝 天神大樓店</div>
-        <span class="item-duration tag-shop">從天神ビル指標走樓梯到天神大樓 B1 買齊藥品</span>
-    </div>
-</div>
+                <div class="timeline-item">
+                    <div class="time-badge" id="d4-time-7" contenteditable="true" onblur="saveData('d4-time-7')">14:20</div>
+                    <div class="item-details">
+                        <div class="item-title"><span class="item-icon">🛍️</span> 天神地下街</div>
+                        <span class="item-duration tag-shop" id="d4-note-7" contenteditable="true" onblur="saveData('d4-note-7')">購物清單:</span>
+                    </div>
+                </div>
 
-<div class="timeline-item">
-    <div class="time-badge">15:15</div>
-    <div class="item-details">
-        <div class="item-title"><span class="item-icon">🛍️</span> Mina 天神</div>
-        <span class="item-duration tag-shop"> LOFT / UNIQLO / GU / 整棟商場 </span>
-    </div>
-</div>             
+                <div class="timeline-item">
+                    <div class="time-badge" id="d4-time-8" contenteditable="true" onblur="saveData('d4-time-8')">14:45</div>
+                    <div class="item-details">
+                        <div class="item-title"><span class="item-icon">💊</span> 大國藥妝 天神大樓店</div>
+                        <span class="item-duration tag-shop" id="d4-note-8" contenteditable="true" onblur="saveData('d4-note-8')">從天神ビル指標走樓梯到天神大樓 B1 買齊藥品</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-badge" id="d4-time-9" contenteditable="true" onblur="saveData('d4-time-9')">15:15</div>
+                    <div class="item-details">
+                        <div class="item-title"><span class="item-icon">🛍️</span> Mina 天神</div>
+                        <span class="item-duration tag-shop" id="d4-note-9" contenteditable="true" onblur="saveData('d4-note-9')"> LOFT / UNIQLO / GU / 整棟商場 </span>
+                    </div>
+                </div>             
  
                 <div class="timeline-item">
-                    <div class="time-badge">16:30</div>
+                    <div class="time-badge" id="d4-time-10" contenteditable="true" onblur="saveData('d4-time-10')">16:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏬</span> Iwataya Main Store (岩田屋)</div>
-                        <span class="item-duration tag-sight">購買物品:</span>
+                        <span class="item-duration tag-sight" id="d4-note-10" contenteditable="true" onblur="saveData('d4-note-10')">購買物品:</span>
                     </div>
                 </div>
 
-                
-
                 <div class="timeline-item">
-                    <div class="time-badge">18:00</div>
+                    <div class="time-badge" id="d4-time-11" contenteditable="true" onblur="saveData('d4-time-11')">18:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🛍️</span> 物品補齊或回飯店休息 </div>
-                        <span class="item-duration tag-hotel">確認購物清單</span>
+                        <span class="item-duration tag-hotel" id="d4-note-11" contenteditable="true" onblur="saveData('d4-note-11')">確認購物清單</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">19:30</div>
+                    <div class="time-badge" id="d4-time-12" contenteditable="true" onblur="saveData('d4-time-12')">19:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🥩</span> 焼肉ホルモン山翔</div>
-                        <span class="inline-note">燒肉套餐尤其內臟</span>
+                        <span class="inline-note" id="d4-note-12" contenteditable="true" onblur="saveData('d4-note-12')">燒肉套餐尤其內臟</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">21:15</div>
+                    <div class="time-badge" id="d4-time-13" contenteditable="true" onblur="saveData('d4-time-13')">21:15</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🍰</span> Itookashi</div>
-                        <span class="inline-note">居酒屋不一定要去</span>
+                        <span class="inline-note" id="d4-note-13" contenteditable="true" onblur="saveData('d4-note-13')">居酒屋不一定要去</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">22:00</div>
+                    <div class="time-badge" id="d4-time-14" contenteditable="true" onblur="saveData('d4-time-14')">22:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏨</span> 福岡休雷蓋特酒店 (The Gate)</div>
                     </div>
@@ -1083,15 +956,15 @@
         <div class="day-content">
             <div class="timeline-list">
                 <div class="timeline-item">
-                    <div class="time-badge">09:00</div>
+                    <div class="time-badge" id="d5-time-1" contenteditable="true" onblur="saveData('d5-time-1')">09:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏨</span> 福岡休雷蓋特酒店 The Gate HOTEL Fukuoka</div>
-                        <span class="item-duration tag-hotel"> 寄放行李 check out </span>
+                        <span class="item-duration tag-hotel" id="d5-note-1" contenteditable="true" onblur="saveData('d5-note-1')"> 寄放行李 check out </span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">09:30</div>
+                    <div class="time-badge" id="d5-time-2" contenteditable="true" onblur="saveData('d5-time-2')">09:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🚆</span> 博多➔門司港與小倉城</div>
                         <div class="transit-jelly-card">
@@ -1105,7 +978,7 @@
                                             <path d="M12 7 L8 14 M12 7 L16 14" stroke-width="2" stroke-linecap="round" fill="none"/>
                                         </svg>
                                     </button>
-                                    <input type="text" class="jelly-input input-time-text" value="09:36 發 ➔ 09:51 到" placeholder="時間標示">
+                                    <input type="text" id="d5-transit-input-1" class="jelly-input input-time-text" value="09:36 發 ➔ 09:51 到" placeholder="時間標示" onchange="saveInputValue('d5-transit-input-1')">
                                 </div>
                                 <button class="backup-btn" onclick="openModal('博多 ➔ 小倉 備用班次', ['09:44 發 ➔ 09:59 到 (特急音速號)', '09:49 發 ➔ 10:06 到 (特急音速號)'])">
                                     <svg class="clock-icon" viewBox="0 0 24 24">
@@ -1114,30 +987,30 @@
                                 </button>
                             </div>
                             <div class="transit-expand-content">
-                                <div class="jelly-scroll-text" contenteditable="true">🚄 需轉普通車至門司港，山陽新幹線，購買自由座</div>
+                                <div id="d5-platform-1" class="jelly-scroll-text" contenteditable="true" onblur="saveData('d5-platform-1')">🚄 需轉普通車至門司港，山陽新幹線，購買自由座</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">10:30</div>
+                    <div class="time-badge" id="d5-time-3" contenteditable="true" onblur="saveData('d5-time-3')">10:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">⚓</span> 門司港懷舊區散策</div>
-                        <span class="item-duration tag-sight">唐戶市場、港區建築、舊門司三井俱樂部</span>
+                        <span class="item-duration tag-sight" id="d5-note-3" contenteditable="true" onblur="saveData('d5-note-3')">唐戶市場、港區建築、舊門司三井俱樂部</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">13:00</div>
+                    <div class="time-badge" id="d5-time-4" contenteditable="true" onblur="saveData('d5-time-4')">13:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏯</span> 小倉城 & 庭園巡禮</div>
-                        <span class="item-duration tag-sight">搭乘至西小倉站步行至城廓參觀</span>
+                        <span class="item-duration tag-sight" id="d5-note-4" contenteditable="true" onblur="saveData('d5-note-4')">搭乘至西小倉站步行至城廓參觀</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">16:30</div>
+                    <div class="time-badge" id="d5-time-5" contenteditable="true" onblur="saveData('d5-time-5')">16:30</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🚆</span> 小倉城➔博多</div>
                         <div class="transit-jelly-card">
@@ -1151,7 +1024,7 @@
                                             <path d="M12 7 L8 14 M12 7 L16 14" stroke-width="2" stroke-linecap="round" fill="none"/>
                                         </svg>
                                     </button>
-                                    <input type="text" class="jelly-input input-time-text" value="16:34 發 ➔ 16:51 到" placeholder="時間標示">
+                                    <input type="text" id="d5-transit-input-2" class="jelly-input input-time-text" value="16:34 發 ➔ 16:51 到" placeholder="時間標示" onchange="saveInputValue('d5-transit-input-2')">
                                 </div>
                                 <button class="backup-btn" onclick="openModal('小倉 ➔ 博多 備用班次', ['16:43 發 ➔ 16:59 到 (特急音速號)', '16:54 發 ➔ 17:09 到 (特急音速號)'])">
                                     <svg class="clock-icon" viewBox="0 0 24 24">
@@ -1160,32 +1033,32 @@
                                 </button>
                             </div>
                             <div class="transit-expand-content">
-                                <div class="jelly-scroll-text" contenteditable="true">🚄 預估普通車搭乘時間，購買自由座，搭地鐵到天神站返回飯店</div>
+                                <div id="d5-platform-2" class="jelly-scroll-text" contenteditable="true" onblur="saveData('d5-platform-2')">🚄 預估普通車搭乘時間，購買自由座，搭地鐵到天神站返回飯店</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">17:00</div>
+                    <div class="time-badge" id="d5-time-6" contenteditable="true" onblur="saveData('d5-time-6')">17:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏨</span> 福岡休雷蓋特酒店 The Gate HOTEL Fukuoka</div>
-                        <span class="item-duration tag-hotel">5點以前拿取寄放行李</span>
+                        <span class="item-duration tag-hotel" id="d5-note-6" contenteditable="true" onblur="saveData('d5-note-6')">5點以前拿取寄放行李</span>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">17:15</div>
+                    <div class="time-badge" id="d5-time-7" contenteditable="true" onblur="saveData('d5-time-7')">17:15</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🚕</span> 搭計程車去機場</div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge">17:45</div>
+                    <div class="time-badge" id="d5-time-8" contenteditable="true" onblur="saveData('d5-time-8')">17:45</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">✈️</span> 福岡國際機場</div>
-                         <span class="inline-note"> 19:55回程時間，提早辦理登機 </span>
+                        <span class="inline-note" id="d5-note-8" contenteditable="true" onblur="saveData('d5-note-8')"> 19:55回程時間，提早辦理登機 </span>
                     </div>
                 </div>
             </div>
@@ -1206,6 +1079,44 @@
 </div>
 
 <script>
+    // 1. 頁面載入時自動讀取 localStorage 儲存的內容
+    document.addEventListener("DOMContentLoaded", function() {
+        // 載入所有 contenteditable 區塊 (span/div)
+        const editableElements = document.querySelectorAll('[contenteditable="true"]');
+        editableElements.forEach(el => {
+            if (el.id) {
+                const savedValue = localStorage.getItem(el.id);
+                if (savedValue !== null) {
+                    el.innerText = savedValue;
+                }
+            }
+        });
+
+        // 載入所有 input 輸入框 (時間標記)
+        const inputElements = document.querySelectorAll('.jelly-input');
+        inputElements.forEach(input => {
+            if (input.id) {
+                const savedValue = localStorage.getItem(input.id);
+                if (savedValue !== null) {
+                    input.value = savedValue;
+                }
+            }
+        });
+    });
+
+    // 2. 儲存文字區塊 (span / div) 的變更
+    function saveData(id) {
+        const content = document.getElementById(id).innerText;
+        localStorage.setItem(id, content);
+    }
+
+    // 3. 儲存輸入框 (input) 的變更
+    function saveInputValue(id) {
+        const value = document.getElementById(id).value;
+        localStorage.setItem(id, value);
+    }
+
+    // 4. 切換天數頁籤
     function switchDay(dayNum) {
         const sections = document.querySelectorAll('.day-section');
         const btns = document.querySelectorAll('.nav-btn');
@@ -1225,6 +1136,7 @@
         }
     }
 
+    // 5. 開啟 Modal 彈窗
     function openModal(title, schedules) {
         document.getElementById('modalTitle').innerText = title;
         const listContainer = document.getElementById('modalList');
@@ -1250,6 +1162,7 @@
         modal.classList.add('active');
     }
 
+    // 6. 關閉 Modal 彈窗
     function closeModal(event) {
         if (event.target.id === 'backupModal') {
             closeModalDirect();
@@ -1261,6 +1174,7 @@
         modal.classList.remove('active');
     }
 
+    // 7. 果凍卡片展開/收合
     function toggleExpandFromCherry(cherryBtnElement) {
         const card = cherryBtnElement.closest('.transit-jelly-card');
         if (card) {
