@@ -56,21 +56,22 @@
     /* 區域切換按鈕區 */
     .map-tabs {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 10px;
     }
     .tab-btn {
       flex: 1;
-      padding: 8px 12px;
+      padding: 8px 6px;
       border: 2px solid #ffcdd2;
       border-radius: 12px;
       background-color: #ffffff;
       color: #a8000b;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.2s ease;
       box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      text-align: center;
     }
     .tab-btn.active {
       background-color: #a8000b;
@@ -201,10 +202,11 @@
     <h1>📍 福岡美食相對地圖</h1>
   </header>
 
-  <!-- 區域切換按鈕區 -->
+  <!-- 區域切換按鈕區 (新增博多車站) -->
   <div class="map-tabs">
     <button class="tab-btn active" onclick="changeMap('2.png', 'tenjinArea', this)">天神地區</button>
-    <button class="tab-btn" onclick="changeMap('1.png', 'nakasuArea', this)">中洲川端地區</button>
+    <button class="tab-btn" onclick="changeMap('1.png', 'nakasuArea', this)">中洲川端</button>
+    <button class="tab-btn" onclick="changeMap('IMG_0379.png', 'hakataArea', this)">博多車站</button>
   </div>
 
   <!-- 相對位置示意圖區塊 -->
@@ -493,6 +495,56 @@
     </div>
   </div>
 
+  <!-- 博多車站地區列表區塊 (新增) -->
+  <div id="hakataArea" class="area-section">
+    <div class="area-header">博多車站地區 店家與地標導覽</div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">AMU PLAZA 博多</div>
+        <span class="food-tag">購物商場 / UGG 專櫃</span>
+        <div class="food-desc">車站共構商場，3F 有 Traditional Weatherwear，5F 有 UGG 專櫃。</div>
+      </div>
+      <a href="https://maps.google.com/?q=AMU+PLAZA+博多" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">博多阪急百貨</div>
+        <span class="food-tag">精品百貨 / 伴手禮</span>
+        <div class="food-desc">與博多站直通，B1 伴手禮街與各式甜點名店聚集。</div>
+      </div>
+      <a href="https://maps.google.com/?q=博多阪急" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">KITTE 博多 / OIOI 0101</div>
+        <span class="food-tag">購物 / 餐廳街</span>
+        <div class="food-desc">車站旁複合式商場，B1與9-10F美食街有 Shin-Shin 拉麵等多家名店。</div>
+      </div>
+      <a href="https://maps.google.com/?q=KITTE博多" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">博多銘品館 (MING 商店街)</div>
+        <span class="food-tag">伴手禮/名產</span>
+        <div class="food-desc">博多車站內最大名產街，營業至 21:00，採買伴手禮極方便。</div>
+      </div>
+      <a href="https://maps.google.com/?q=博多車站MING" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">Shin-Shin 拉麵 (KITTE博多店)</div>
+        <span class="food-tag">博多拉麵</span>
+        <div class="food-desc">位於 KITTE 博多 B1，博多站想吃 Shin-Shin 的首選分店。</div>
+      </div>
+      <a href="https://maps.google.com/?q=ShinShin拉麵KITTE博多店" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+  </div>
+
 </div>
 
 <!-- 圖片放大燈箱 modal -->
@@ -516,9 +568,17 @@
     document.getElementById(areaId).classList.add('active');
   }
 
-  // 避免檔名大小寫或副檔名造成破圖的備用處理
+  // 避免檔名大小寫或副檔名造成破圖的備用處理機制
   function handleImgError(img) {
-    if (img.src.endsWith('1.jpg')) {
+    if (img.src.includes('IMG_0379')) {
+      if (img.src.endsWith('.png')) {
+        img.src = 'IMG_0379.JPG';
+      } else if (img.src.endsWith('.JPG')) {
+        img.src = 'IMG_0379.jpg';
+      } else if (img.src.endsWith('.jpg')) {
+        img.src = 'IMG_0379.PNG';
+      }
+    } else if (img.src.endsWith('1.jpg')) {
       img.src = '1.png';
     } else if (img.src.endsWith('1.png')) {
       img.src = '1.PNG';
