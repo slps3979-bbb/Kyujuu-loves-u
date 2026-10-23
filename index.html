@@ -239,6 +239,7 @@
             border-radius: 10px;
         }
 
+        /* 💡 加長底部內邊距（padding-bottom: 80px），防止手機底欄遮擋最後一個行程 */
         .day-content {
             flex: 1;
             overflow-y: auto;
@@ -249,7 +250,7 @@
             border: 2.5px solid #ffffff;
             border-top: none;
             border-radius: 0 0 18px 18px;
-            padding: 16px 12px;
+            padding: 16px 12px 80px 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
             box-sizing: border-box;
             width: 100%;
@@ -563,15 +564,7 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge" id="d1-time-4" contenteditable="true" onblur="saveData('d1-time-4')">17:15</div>
-                    <div class="item-details">
-                        <div class="item-title"><span class="item-icon">🏡</span> 湯布院花卉村</div>
-                        <span class="item-duration tag-sight" id="d1-note-4" contenteditable="true" onblur="saveData('d1-note-4')">停留 2 小時</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time-badge" id="d1-time-5" contenteditable="true" onblur="saveData('d1-time-5')">17:45</div>
+                    <div class="time-badge" id="d1-time-5" contenteditable="true" onblur="saveData('d1-time-5')">17:15</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🛒</span> A-COOP超市 湯布院店</div>
                         <span class="item-duration tag-shop" id="d1-note-5" contenteditable="true" onblur="saveData('d1-note-5')"> 營業時間到晚上 7:00 </span>
@@ -579,7 +572,7 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="time-badge" id="d1-time-6" contenteditable="true" onblur="saveData('d1-time-6')">18:30</div>
+                    <div class="time-badge" id="d1-time-6" contenteditable="true" onblur="saveData('d1-time-6')">18:00</div>
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
                         <span class="item-duration tag-hotel" id="d1-note-6a" contenteditable="true" onblur="saveData('d1-note-6a')">預約 10/28 計程車 8:15 出發，10/29 釜心飯訂位</span>
@@ -650,6 +643,14 @@
                     <div class="item-details">
                         <div class="item-title"><span class="item-icon">🏡</span> 由布院別邸 樹 (獨棟Villa)</div>
                         <span class="item-duration tag-hotel" id="d2-note-5" contenteditable="true" onblur="saveData('d2-note-5')">步行至湯之坪步道約10分鐘</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-badge" id="d2-time-5a" contenteditable="true" onblur="saveData('d2-time-5a')">14:45</div>
+                    <div class="item-details">
+                        <div class="item-title"><span class="item-icon">🏡</span> 湯布院花卉村 YUFUIN FLORAL VILLAGE</div>
+                        <span class="item-duration tag-sight" id="d2-note-5a" contenteditable="true" onblur="saveData('d2-note-5a')">營業至 17:30，移至今日散策順逛</span>
                     </div>
                 </div>
 
