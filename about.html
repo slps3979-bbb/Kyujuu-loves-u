@@ -202,7 +202,7 @@
     <h1>📍 福岡美食相對地圖</h1>
   </header>
 
-  <!-- 區域切換按鈕區 (新增博多車站) -->
+  <!-- 區域切換按鈕區 -->
   <div class="map-tabs">
     <button class="tab-btn active" onclick="changeMap('2.png', 'tenjinArea', this)">天神地區</button>
     <button class="tab-btn" onclick="changeMap('1.png', 'nakasuArea', this)">中洲川端</button>
@@ -218,6 +218,24 @@
   <!-- 天神地區列表區塊 -->
   <div id="tenjinArea" class="area-section active">
     <div class="area-header">天神地區 店家與地標導覽</div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">極味屋 (天神PARCO店)</div>
+        <span class="food-tag">石燒和牛漢堡排 / 超人氣排隊</span>
+        <div class="food-desc">PARCO B1，DIY鐵板和牛漢堡排，建議避開正用餐尖峰或開店前抵達。</div>
+      </div>
+      <a href="https://maps.google.com/?q=極味屋天神PARCO店" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">一蘭拉麵 (天神店 / 西通店)</div>
+        <span class="food-tag">豚骨拉麵 / 快速替代備案</span>
+        <div class="food-desc">經典味集中座位，若中洲總本店排隊太長可作為天神商圈的順路備案。</div>
+      </div>
+      <a href="https://maps.google.com/?q=一蘭拉麵天神店" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
 
     <div class="food-card">
       <div class="food-info">
@@ -266,15 +284,6 @@
 
     <div class="food-card">
       <div class="food-info">
-        <div class="food-title">極味屋 (天神PARCO店)</div>
-        <span class="food-tag">石燒和牛漢堡排</span>
-        <div class="food-desc">PARCO B1，人氣鐵板漢堡排。</div>
-      </div>
-      <a href="https://maps.google.com/?q=極味屋天神PARCO店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
         <div class="food-title">福岡 PARCO 百貨</div>
         <span class="food-tag">購物百貨</span>
         <div class="food-desc">地鐵天神站直通，美食街與潮流品牌聚集。</div>
@@ -289,15 +298,6 @@
         <div class="food-desc">天神老字號排隊平價優質壽司。</div>
       </div>
       <a href="https://maps.google.com/?q=葫蘆壽司天神" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">一蘭拉麵 (天神店)</div>
-        <span class="food-tag">豚骨拉麵</span>
-        <div class="food-desc">經典獨立味集中座位拉麵。</div>
-      </div>
-      <a href="https://maps.google.com/?q=一蘭拉麵天神店" target="_blank" class="btn-map">地圖 🗺️</a>
     </div>
 
     <div class="food-card">
@@ -397,20 +397,20 @@
 
     <div class="food-card">
       <div class="food-info">
+        <div class="food-title">一蘭拉麵 (總本店)</div>
+        <span class="food-tag">地標打卡 / 24HR營業</span>
+        <div class="food-desc">中洲地標級總本店，整棟紅色燈籠建築，適合拍照打卡與離峰時段用餐。</div>
+      </div>
+      <a href="https://maps.google.com/?q=一蘭拉麵總本店" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
         <div class="food-title">Mitsui Garden HOTEL (博多三井花園飯店)</div>
         <span class="food-tag">住宿飯店</span>
         <div class="food-desc">鄰近櫛田神社前站，交通便捷。</div>
       </div>
       <a href="https://maps.google.com/?q=MitsuiGardenHotelFukuokaGion" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">一蘭拉麵 (總本店)</div>
-        <span class="food-tag">豚骨拉麵</span>
-        <div class="food-desc">中洲地標級總本店，整棟紅色燈籠建築。</div>
-      </div>
-      <a href="https://maps.google.com/?q=一蘭拉麵總本店" target="_blank" class="btn-map">地圖 🗺️</a>
     </div>
 
     <div class="food-card">
@@ -495,9 +495,63 @@
     </div>
   </div>
 
-  <!-- 博多車站地區列表區塊 (新增) -->
+  <!-- 博多車站地區列表區塊 -->
   <div id="hakataArea" class="area-section">
     <div class="area-header">博多車站地區 店家與地標導覽</div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">喜水丸 (博多一番街店)</div>
+        <span class="food-tag">海鮮定食 / 明太子吃到飽</span>
+        <div class="food-desc">博多車站 B1 一番街超人氣名店，早餐即有新鮮刺身與明太子無限享用。</div>
+      </div>
+      <a href="https://maps.google.com/?q=喜水丸博多一番街店" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">Mignon (il FORNO del MIGNON)</div>
+        <span class="food-tag">排隊名店 / 迷你可頌</span>
+        <div class="food-desc">博多車站改札口前遠遠就能聞到香味的排隊人氣迷你可頌專賣店。</div>
+      </div>
+      <a href="https://maps.google.com/?q=ilFORNOdelMIGNON博多店" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">LeClerc (ル・クレール)</div>
+        <span class="food-tag">法式洋菓子 / 伴手禮</span>
+        <div class="food-desc">博多車站內精緻法式甜點與手工餅乾名店，極具質感的伴手禮選擇。</div>
+      </div>
+      <a href="https://maps.google.com/?q=LeClerc博多" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">Nom repas timbre</div>
+        <span class="food-tag">特色餐飲 / 站內美食</span>
+        <div class="food-desc">博多車站內氣氛佳的精緻餐食選擇，適合搭車前後享用。</div>
+      </div>
+      <a href="https://maps.google.com/?q=Nomrepastimbre博多" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">Café Matsukado (カフェマツカド)</div>
+        <span class="food-tag">車站咖啡 / 輕食甜點</span>
+        <div class="food-desc">博多站內極具溫馨氣氛的咖啡角落，提供香醇咖啡與精緻手作甜點。</div>
+      </div>
+      <a href="https://maps.google.com/?q=CafeMatsukado博多" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-info">
+        <div class="food-title">千鳥屋本家 (DEITOS店)</div>
+        <span class="food-tag">九州老字號 / 銘菓伴手禮</span>
+        <div class="food-desc">博多DEITOS 1F，以千鳥饅頭與Tirolian（チロリアン）捲心餅聞名的傳統銘菓店。</div>
+      </div>
+      <a href="https://maps.google.com/?q=千鳥屋本家博多DEITOS" target="_blank" class="btn-map">地圖 🗺️</a>
+    </div>
 
     <div class="food-card">
       <div class="food-info">
