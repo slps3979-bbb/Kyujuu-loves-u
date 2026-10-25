@@ -42,12 +42,12 @@
             box-sizing: border-box;
         }
 
-        /* 頂部導覽列 */
+        /* 頂部導覽列（返回 index.html） */
         .top-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             flex-shrink: 0;
         }
 
@@ -64,10 +64,12 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            transition: transform 0.2s ease;
         }
+        .btn-back:active { transform: scale(0.92); }
 
         .page-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 900;
             color: var(--primary-red);
             margin: 0;
@@ -79,7 +81,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             flex-shrink: 0;
         }
 
@@ -89,8 +91,8 @@
             color: var(--primary-red);
             border: 2.5px solid var(--primary-red);
             border-radius: 16px;
-            padding: 10px 4px;
-            font-size: 14px;
+            padding: 9px 4px;
+            font-size: 13.5px;
             font-weight: 900;
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -123,7 +125,7 @@
         }
 
         .card-header-title {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 900;
             color: #4e342e;
             margin-bottom: 8px;
@@ -136,7 +138,8 @@
         /* 地圖圖片容器 */
         .map-wrapper {
             width: 100%;
-            height: 220px;
+            height: 38vh;
+            max-height: 260px;
             background: #fff8f8;
             border-radius: 14px;
             border: 2px solid #ffcdd2;
@@ -153,13 +156,13 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         /* 店舖 Google Maps 連結清單區塊 */
         .shop-list-section {
             flex: 1;
-            margin-top: 12px;
+            margin-top: 10px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             padding-right: 2px;
@@ -169,7 +172,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 8px;
-            padding-bottom: 20px;
+            padding-bottom: 60px;
         }
 
         .shop-link-btn {
@@ -178,7 +181,7 @@
             border: 1.5px solid #ffcdd2;
             border-radius: 12px;
             padding: 8px 10px;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 800;
             text-decoration: none;
             display: flex;
@@ -191,7 +194,7 @@
         .shop-link-btn:active {
             background: var(--soft-pink-bg);
             border-color: var(--primary-red);
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
 
         .shop-name {
@@ -201,152 +204,9 @@
         }
 
         .map-icon {
-            font-size: 14px;
+            font-size: 13px;
             flex-shrink: 0;
         }
 
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(168, 0, 11, 0.2); border-radius: 4px; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <!-- 頂部返回按鈕與標題 -->
-    <div class="top-nav">
-        <a href="index.html" class="btn-back">⬅ 返回</a>
-        <h1 class="page-title">福岡美食相對位置地圖</h1>
-    </div>
-
-    <!-- 區域切換按鈕（博多 / 天神 / 中洲川端） -->
-    <div class="region-tabs">
-        <button class="tab-btn active" onclick="switchRegion('hakata', this)">博多</button>
-        <button class="tab-btn" onclick="switchRegion('tenjin', this)">天神</button>
-        <button class="tab-btn" onclick="switchRegion('nakasu', this)">中洲川端</button>
-    </div>
-
-    <!-- 主展示卡片 -->
-    <div class="main-card">
-        <div class="card-header-title">
-            <span>🗺️ 相對位置圖</span>
-        </div>
-
-        <!-- 地圖展示容器 -->
-        <div class="map-wrapper">
-            <!-- 預設顯示博多地圖 IMG_0379.png -->
-            <img id="currentMap" class="map-img" src="IMG_0379.png" alt="區域相對位置地圖">
-        </div>
-
-        <!-- 點擊導向 Google Maps 的店鋪地標按鈕清單 -->
-        <div class="shop-list-section">
-            <div class="card-header-title" style="margin-top: 4px;">
-                <span>📍 快捷開啟 Google 地圖導航</span>
-            </div>
-            <div id="shopGrid" class="shop-grid">
-                <!-- JavaScript 動態渲染店鋪按鈕 -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // 店鋪與 Google 地圖導航連結資料庫
-    const shopData = {
-        hakata: [
-            { name: "AMU PLAZA 博多", query: "AMU PLAZA 博多" },
-            { name: "博多阪急", query: "博多阪急" },
-            { name: "KITTE 博多", query: "KITTE 博多" },
-            { name: "MING 商店街", query: "MING 博多" },
-            { name: "AMU EST", query: "AMU EST 博多" },
-            { name: "DEITOS", query: "博多 DEITOS" },
-            { name: "TOKYU HANDS", query: "ハンズ博多店" }
-        ],
-        tenjin: [
-            { name: "ShinShin拉麵 天神本店", query: "ShinShin拉麵 天神本店" },
-            { name: "FULLFULL 明太子麵包", query: "Full Full Tenjin" },
-            { name: "Truffle松露麵包", query: "Mills by TruffleBAKERY 福岡天神" },
-            { name: "HOTEL the Gate", query: "The Gate Hotel Fukuoka by Hulic" },
-            { name: "PARCO 百貨", query: "福岡PARCO" },
-            { name: "極味屋 漢堡排", query: "極味や 福岡パルコ店" },
-            { name: "葫蘆壽司 (ひょうたん)", query: "ひょうたん寿司" },
-            { name: "一蘭拉麵 天神西通店", query: "一蘭 天神西通り店" },
-            { name: "Solaria Plaza", query: "ソラリアプラザ" },
-            { name: "岩田屋本店", query: "岩田屋 本店" },
-            { name: "三越百貨", query: "福岡三越" },
-            { name: "大丸天神百貨", query: "大丸 福岡天神店" },
-            { name: "警固神社", query: "警固神社" },
-            { name: "茅屋金次郎", query: "久原本家 茅乃舎 天神大丸店" },
-            { name: "I'm donut?", query: "I'm donut? 福岡" },
-            { name: "Blue Bottle Coffee", query: "Blue Bottle Coffee Fukuoka Tenjin" },
-            { name: "麵屋兼虎", query: "麺や 兼虎 天神本店" }
-        ],
-        nakasu: [
-            { name: "Mitsui Garden HOTEL", query: "三井ガーデンホテル福岡中洲" },
-            { name: "一蘭拉麵 總本店", query: "一蘭 本社総本店" },
-            { name: "鈴懸 博多本店", query: "鈴懸 本店" },
-            { name: "Pain Stock Tenjin", query: "stock pain stock天神店" },
-            { name: "元祖博多明太重", query: "元祖博多めんたい重" },
-            { name: "中洲屋台橫丁", query: "中洲屋台街" },
-            { name: "櫛田神社", query: "櫛田神社" },
-            { name: "信州そば", query: "信州そばむらた" },
-            { name: "FULL FULL 博多", query: "Full Full Hakata" },
-            { name: "Bread, Espresso &", query: "パンとエスプレッソと博多っと" },
-            { name: "如水庵", query: "如水庵 博多駅前本店" }
-        ]
-    };
-
-    // 💡 已對應正確的 GitHub 圖檔名稱
-    const mapImages = {
-        hakata: 'IMG_0379.png',
-        tenjin: '2.png',
-        nakasu: '1.png'
-    };
-
-    // 切換區域（博多 / 天神 / 中洲川端）
-    function switchRegion(regionKey, btnElement) {
-        // 1. 更新頁籤按鈕樣式
-        const btns = document.querySelectorAll('.tab-btn');
-        btns.forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
-
-        // 2. 更換相對位置地圖圖片
-        const mapImg = document.getElementById('currentMap');
-        mapImg.style.opacity = '0.3';
-        setTimeout(() => {
-            mapImg.src = mapImages[regionKey];
-            mapImg.style.opacity = '1';
-        }, 150);
-
-        // 3. 渲染該區域的 Google Maps 店鋪按鈕
-        renderShopButtons(regionKey);
-    }
-
-    // 動態生成 Google Maps 店鋪連結按鈕
-    function renderShopButtons(regionKey) {
-        const grid = document.getElementById('shopGrid');
-        grid.innerHTML = '';
-
-        const shops = shopData[regionKey] || [];
-        shops.forEach(shop => {
-            const a = document.createElement('a');
-            a.className = 'shop-link-btn';
-            a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shop.query)}`;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            
-            a.innerHTML = `
-                <span class="shop-name">${shop.name}</span>
-                <span class="map-icon">🗺️</span>
-            `;
-            grid.appendChild(a);
-        });
-    }
-
-    // 初始化頁面：預設載入博多區域資料
-    document.addEventListener("DOMContentLoaded", function() {
-        renderShopButtons('hakata');
-    });
-</script>
-
-</body>
-</html>
+        ::-webkit-scrollbar-thumb { background:
