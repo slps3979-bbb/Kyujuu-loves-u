@@ -1,656 +1,354 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>福岡美食相對位置地圖</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', sans-serif;
-    }
-    body {
-      background-color: #f8fafc;
-      margin: 0;
-      padding: 12px;
-      color: #334155;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding-bottom: 40px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>福岡區域購物與美食相對位置圖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #a8000b;
+            --soft-pink-bg: rgba(255, 235, 238, 0.88);
+            --text-dark: #3e2723;
+            --tag-blue: #e3f2fd;
+            --tag-purple: rgba(226, 214, 238, 0.85);
+        }
 
-    /* 頂部導覽列 */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding: 4px 0;
-    }
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      background: #ffffff;
-      color: #a8000b;
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      border: 2px solid #ffcdd2;
-    }
-    h1 {
-      font-size: 1.2rem;
-      margin: 0;
-      color: #a8000b;
-      font-weight: 900;
-    }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    /* 區域切換按鈕區 */
-    .map-tabs {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 8px 6px;
-      border: 2px solid #ffcdd2;
-      border-radius: 12px;
-      background-color: #ffffff;
-      color: #a8000b;
-      font-size: 0.8rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-      text-align: center;
-    }
-    .tab-btn.active {
-      background-color: #a8000b;
-      color: #ffffff;
-      border-color: #a8000b;
-      box-shadow: 0 3px 8px rgba(168,0,11,0.25);
-    }
+        body {
+            font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', sans-serif;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), url('cherry.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text-dark);
+        }
 
-    /* 相對位置示意圖區塊 */
-    .map-card {
-      background: white;
-      padding: 10px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      text-align: center;
-      margin-bottom: 20px;
-      border: 2px solid #ffffff;
-    }
-    .map-img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-      cursor: pointer;
-      display: block;
-    }
-    .map-hint {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-top: 8px;
-      font-weight: 700;
-    }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(168, 0, 11, 0.2); border-radius: 4px; }
 
-    /* 區域清單切換控制 */
-    .area-section {
-      display: none;
-    }
-    .area-section.active {
-      display: block;
-    }
+        .container {
+            max-width: 480px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 10px 12px 40px 12px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
 
-    /* 區域標題 */
-    .area-header {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: #1e293b;
-      margin: 20px 0 10px 0;
-      padding-left: 8px;
-      border-left: 4px solid #a8000b;
-      display: flex;
-      align-items: center;
-    }
+        /* 頂部標題框 */
+        .header-card {
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 3px solid #ffffff;
+            border-radius: 20px;
+            padding: 0;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* 美食與店家卡片 */
-    .food-card {
-      background: white;
-      padding: 12px 14px;
-      border-radius: 14px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #f1f5f9;
-    }
-    .food-info {
-      flex: 1;
-      padding-right: 10px;
-    }
-    .food-title {
-      font-size: 0.95rem;
-      font-weight: 900;
-      color: #0f172a;
-    }
-    .food-tag {
-      display: inline-block;
-      font-size: 0.7rem;
-      background: #ffe4e6;
-      color: #e11d48;
-      padding: 2px 6px;
-      border-radius: 6px;
-      margin-top: 3px;
-      font-weight: 800;
-    }
-    .food-desc {
-      font-size: 0.8rem;
-      color: #64748b;
-      margin-top: 4px;
-      line-height: 1.35;
-      font-weight: 500;
-    }
-    .btn-map {
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      white-space: nowrap;
-      box-shadow: 0 2px 5px rgba(37,99,235,0.25);
-    }
+        .peko-bar-top, .peko-bar-bottom {
+            background: linear-gradient(90deg, #8e0000, #c62828, #8e0000);
+            color: white;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 4px 0;
+            letter-spacing: 2px;
+            width: 100%;
+            display: block;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
 
-    /* 燈箱全螢幕圖片 */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-    }
-    .modal img {
-      max-width: 100%;
-      max-height: 85vh;
-      border-radius: 8px;
-    }
-  </style>
+        .peko-bar-top { border-bottom: 2px solid #ffffff; }
+        .peko-bar-bottom { border-top: 2px solid #ffffff; }
+
+        .main-title {
+            font-weight: 900;
+            font-size: 20px;
+            color: var(--primary-red);
+            line-height: 1.3;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* 返回主行程按鈕 */
+        .btn-back-link {
+            display: block;
+            background: #ffffff;
+            color: var(--primary-red) !important;
+            border: 2.5px solid var(--primary-red);
+            padding: 8px 12px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 14px;
+            box-shadow: 0 3px 8px rgba(168, 0, 11, 0.15);
+            transition: all 0.2s ease;
+        }
+        .btn-back-link:active {
+            background: #fff5f8;
+            transform: scale(0.97);
+        }
+
+        /* 區域區塊卡片 */
+        .section-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2.5px solid #ffffff;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #ffffff;
+            background: linear-gradient(90deg, #a8000b, #c62828);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin: -14px -14px 12px -14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .shop-category {
+            font-size: 13.5px;
+            font-weight: 900;
+            color: #8e0000;
+            margin: 10px 0 4px 0;
+            border-left: 4px solid var(--primary-red);
+            padding-left: 6px;
+        }
+
+        .shop-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .shop-item {
+            background: rgba(255, 235, 238, 0.5);
+            border: 1px solid #ffcdd2;
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            font-size: 12.5px;
+            line-height: 1.4;
+        }
+
+        .shop-name {
+            font-weight: 900;
+            color: #2b1704;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .shop-desc {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #616161;
+            margin-top: 2px;
+        }
+
+        .badge-target {
+            background: #e3f2fd;
+            color: #1565c0;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 6px;
+            border: 1px solid #bbdefb;
+            display: inline-block;
+            margin-top: 3px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: #8d6e63;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  
-  <!-- 頂部列：返回主頁按鈕 -->
-  <header>
-    <a href="index.html" class="btn-back">⬅ 返回行程頁</a>
-    <h1>📍 福岡美食相對地圖</h1>
-  </header>
-
-  <!-- 區域切換按鈕區 -->
-  <div class="map-tabs">
-    <button class="tab-btn active" onclick="changeMap('2.png', 'tenjinArea', this)">天神地區</button>
-    <button class="tab-btn" onclick="changeMap('1.png', 'nakasuArea', this)">中洲川端</button>
-    <button class="tab-btn" onclick="changeMap('IMG_0379.png', 'hakataArea', this)">博多車站</button>
-  </div>
-
-  <!-- 相對位置示意圖區塊 -->
-  <div class="map-card">
-    <img id="currentMap" src="2.png" alt="美食相對位置圖" class="map-img" onclick="openLightbox(this.src)" onerror="handleImgError(this)">
-    <div class="map-hint">💡 點擊上圖可放大查看區域相對位置</div>
-  </div>
-
-  <!-- 天神地區列表區塊 -->
-  <div id="tenjinArea" class="area-section active">
-    <div class="area-header">天神地區 店家與地標導覽</div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">極味屋 (天神PARCO店)</div>
-        <span class="food-tag">石燒和牛漢堡排 / 超人氣排隊</span>
-        <div class="food-desc">PARCO B1，DIY鐵板和牛漢堡排，建議避開正用餐尖峰或開店前抵達。</div>
-      </div>
-      <a href="https://maps.google.com/?q=極味屋天神PARCO店" target="_blank" class="btn-map">地圖 🗺️</a>
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="peko-bar-top"> 🗺️ MAP 🍒 MAP 🗺️ MAP 🍒 MAP 🗺️ MAP 🍒 </div>
+        <h1 class="main-title">
+            <span>福岡地區購物與美食相對位置圖</span>
+        </h1>
+        <div class="peko-bar-bottom"> 🗺️ MAP 🍒 MAP 🗺️ MAP 🍒 MAP 🗺️ MAP 🍒 </div>
     </div>
 
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">一蘭拉麵 (天神店 / 西通店)</div>
-        <span class="food-tag">豚骨拉麵 / 快速替代備案</span>
-        <div class="food-desc">經典味集中座位，若中洲總本店排隊太長可作為天神商圈的順路備案。</div>
-      </div>
-      <a href="https://maps.google.com/?q=一蘭拉麵天神店" target="_blank" class="btn-map">地圖 🗺️</a>
+    <!-- 返回按鈕 -->
+    <a href="index.html" class="btn-back-link">⬅️ 返回 5日極致之旅主行程</a>
+
+    <!-- 區塊 1：博多車站商圈 -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>📍 博多車站地區 (Hakata)</span>
+            <span>DAY 1 / DAY 3</span>
+        </div>
+
+        <div class="shop-category">👟 運動休閒鞋款與服飾</div>
+        <ul class="shop-list">
+            <li class="shop-item">
+                <div class="shop-name">👟 ASICS 直營專櫃（AMU PLAZA 博多 7F）</div>
+                <div class="shop-desc">重點試穿：GEL-KAYANO (2E寬楦) / GEL-NYC (拿大半號)，適合長途久走與防拇趾外翻。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">👞 MARGARET HOWELL（博多阪急 4F）</div>
+                <div class="shop-desc">重點試穿：Mizuno × MHL. 聯名鞋（建議試 24.5cm / 25.0cm），命定英倫極簡兼具堅固腳感。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🧥 Traditional Weatherwear（AMU PLAZA 博多 3F）</div>
+                <div class="shop-desc">重點採買：日系質感防風風衣與經典傘具。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🏠 gelato pique（AMU PLAZA 博多 1F）</div>
+                <div class="shop-desc">重點採買：軟綿親膚家居服長褲與居家配件。</div>
+            </li>
+        </ul>
+
+        <div class="shop-category">👙 內衣與睡眠寢具</div>
+        <ul class="shop-list">
+            <li class="shop-item">
+                <div class="shop-name">👙 AMPHI（博多阪急 3F）</div>
+                <div class="shop-desc">華歌爾集團旗下：必試 BRAGENIC 無鋼圈系列或棉質零壓感內衣。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🧦 tutuanna（AMU EST B1F）</div>
+                <div class="shop-desc">高CP值選擇：必試「運命のブラ」無鋼圈版、透氣棉質內衣與居家襪。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🛏️ TEMPUR 丹普（博多阪急 7F 寢具區）</div>
+                <div class="shop-desc">重點試躺：感應枕（Original Pillow）與護頸枕。</div>
+            </li>
+        </ul>
+
+        <div class="shop-category">🍜 美食與拉麵</div>
+        <ul class="shop-list">
+            <li class="shop-item">
+                <div class="shop-name">🍜 Shin-Shin 博多拉麵（KITTE 博多 B1F）</div>
+                <div class="shop-desc">在地極致細麵豚骨拉麵，出關抵達博多即可享用。</div>
+            </li>
+        </ul>
     </div>
 
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">shinshin 拉麵 (天神本店)</div>
-        <span class="food-tag">博多拉麵</span>
-        <div class="food-desc">天神商圈排隊名店，細麵濃郁豚骨湯頭。</div>
-      </div>
-      <a href="https://maps.google.com/?q=shinshin拉麵天神本店" target="_blank" class="btn-map">地圖 🗺️</a>
+    <!-- 區塊 2：天神商圈 -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>📍 天神百貨與地下街地區 (Tenjin)</span>
+            <span>DAY 4</span>
+        </div>
+
+        <div class="shop-category">🏬 百貨據點與重點鞋款</div>
+        <ul class="shop-list">
+            <li class="shop-item">
+                <div class="shop-name">🏬 大丸福岡天神店（東館 3F / 本館 B1F）</div>
+                <div class="shop-desc">剛需必買：Clarks 袋鼠鞋 (Wallabee 經典麂皮/方頭不擠腳)；東館 3F 亦有 MARGARET HOWELL 女裝。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🏬 岩田屋本店 IWATAYA（本館 & 新館）</div>
+                <div class="shop-desc">
+                    1. 本館 7F 憑護照免費申辦 Guest Card（享 5% 折扣）<br>
+                    2. 本館 1F 採買 THREE & SUQQU 彩妝保養<br>
+                    3. 新館 5F TEMPUR 丹普枕頭專櫃試躺
+                </div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">👟 MIZUNO SPORTSTYLE（福岡 PARCO 本館 3F）</div>
+                <div class="shop-desc">美津濃潮流休閒專賣店：試穿兼具日系質感與避震支撐的復古鞋款（如 Wave Rider Beta）。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">👟 ASICS Walking 福岡店（天神西通 / 備案）</div>
+                <div class="shop-desc">若博多沒買到可來此補看；有專業足型測量儀與行走舒適鞋款。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🛍️ 天神地下街 & Mina天神</div>
+                <div class="shop-desc">採買 tutuanna 家居服/襪子、大國藥妝（天神大樓B1）及 Mina 天神整棟商場（LOFT/UNIQLO）。</div>
+            </li>
+        </ul>
+
+        <div class="shop-category">🥩 天神周邊美食</div>
+        <ul class="shop-list">
+            <li class="shop-item">
+                <div class="shop-name">🍜 麵屋兼虎（福岡 PARCO 店 B1F）</div>
+                <div class="shop-desc">濃厚魚介豚骨沾麵，採買中途午餐首選。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🥖 Full full 天神店</div>
+                <div class="shop-desc">超人氣明太子法國麵包（建議事先使用 LINE 預約）。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🥩 焼肉ホルモン山翔</div>
+                <div class="shop-desc">高評價極上燒肉與內臟料理， Day 4 晚餐精緻盛宴。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🍮 瑞穗茶碗蒸（中洲）</div>
+                <div class="shop-desc">深夜溫暖茶碗蒸專賣店（最後點餐 23:00）。</div>
+            </li>
+        </ul>
     </div>
 
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">FULLFULL 明太子麵包</div>
-        <span class="food-tag">人氣麵包店</span>
-        <div class="food-desc">招牌現烤明太子法國麵包。</div>
-      </div>
-      <a href="https://maps.google.com/?q=FULLFULL天神パン" target="_blank" class="btn-map">地圖 🗺️</a>
+    <!-- 區塊 3：門司港與小倉商圈 -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>📍 門司港與小倉地區 (Kokura)</span>
+            <span>DAY 5</span>
+        </div>
+
+        <div class="shop-category">🍵 名產與景點散策</div>
+        <ul class="shop-list">
+            <li class="shop-item">
+                <div class="shop-name">🍵 辻利茶舗 京町本店（小倉）</div>
+                <div class="shop-desc">百年抹香名店：抹茶霜淇淋、抹茶拿鐵與伴手禮。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">⚓ 門司港懷舊區 & 唐戶市場</div>
+                <div class="shop-desc">港區建築群、舊門司三井俱樂部、燒咖哩名店巡禮。</div>
+            </li>
+            <li class="shop-item">
+                <div class="shop-name">🏯 小倉城 & 庭園</div>
+                <div class="shop-desc">歷史城廓參觀，感受北九州城下町風情。</div>
+            </li>
+        </ul>
     </div>
 
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Truffle BAKERY (松露麵包)</div>
-        <span class="food-tag">烘焙甜點</span>
-        <div class="food-desc">招牌白松露鹽可頌麵包。</div>
-      </div>
-      <a href="https://maps.google.com/?q=TruffleBAKERY天神" target="_blank" class="btn-map">地圖 🗺️</a>
+    <!-- 底部說明 -->
+    <div class="footer-note">
+        🍒 福岡 5日極致之旅 ‧ 專屬購物與美食指標指南 🍒
     </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Loft / UNIQLO / mina 天神</div>
-        <span class="food-tag">購物商場</span>
-        <div class="food-desc">天神北側大型文具雜貨與服飾購物區。</div>
-      </div>
-      <a href="https://maps.google.com/?q=mina天神" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">HOTEL the Gate by Hulic</div>
-        <span class="food-tag">住宿飯店</span>
-        <div class="food-desc">福岡休雷蓋特酒店，位置便利。</div>
-      </div>
-      <a href="https://maps.google.com/?q=TheGateHotelFukuoka" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">福岡 PARCO 百貨</div>
-        <span class="food-tag">購物百貨</span>
-        <div class="food-desc">地鐵天神站直通，美食街與潮流品牌聚集。</div>
-      </div>
-      <a href="https://maps.google.com/?q=福岡PARCO" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">葫蘆壽司 (ひょうたん寿司)</div>
-        <span class="food-tag">握壽司/海鮮</span>
-        <div class="food-desc">天神老字號排隊平價優質壽司。</div>
-      </div>
-      <a href="https://maps.google.com/?q=葫蘆壽司天神" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">solaria plaza</div>
-        <span class="food-tag">購物商場</span>
-        <div class="food-desc">西鐵天神站直通商場。</div>
-      </div>
-      <a href="https://maps.google.com/?q=solariaPlazaFukuoka" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">岩田屋 (IWATAYA 本店)</div>
-        <span class="food-tag">精品百貨</span>
-        <div class="food-desc">天神核心高級精品百貨公司。</div>
-      </div>
-      <a href="https://maps.google.com/?q=岩田屋本店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">福岡三越</div>
-        <span class="food-tag">精品百貨</span>
-        <div class="food-desc">西鐵天神站共構百貨公司。</div>
-      </div>
-      <a href="https://maps.google.com/?q=福岡三越" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">standard products</div>
-        <span class="food-tag">生活雜貨</span>
-        <div class="food-desc">Daiso 旗下的高質感平價生活雜貨。</div>
-      </div>
-      <a href="https://maps.google.com/?q=StandardProducts福岡" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">大丸天神百貨 (大丸 福岡天神店)</div>
-        <span class="food-tag">百貨公司</span>
-        <div class="food-desc">天神南側指標百貨，鞋款與伴手禮豐富。</div>
-      </div>
-      <a href="https://maps.google.com/?q=大丸福岡天神店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">警固神社</div>
-        <span class="food-tag">景點/神社</span>
-        <div class="food-desc">位於天神鬧區中心的歷史神社。</div>
-      </div>
-      <a href="https://maps.google.com/?q=警固神社" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">芋屋金次郎 (天神地下街店)</div>
-        <span class="food-tag">現炸蕃薯籤/地瓜甜點</span>
-        <div class="food-desc">來自高知的名店，香酥美味的現炸地瓜條/蕃薯籤。</div>
-      </div>
-      <a href="https://maps.google.com/?q=芋屋金次郎天神地下街店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">I'm donut? (福岡店)</div>
-        <span class="food-tag">生甜甜圈</span>
-        <div class="food-desc">超人氣排隊生甜甜圈。</div>
-      </div>
-      <a href="https://maps.google.com/?q=Imdonut福岡" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">麵屋兼虎</div>
-        <span class="food-tag">濃郁沾麵</span>
-        <div class="food-desc">天神南區超濃郁魚介豚骨沾麵。</div>
-      </div>
-      <a href="https://maps.google.com/?q=麵屋兼虎天神" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">BLUE BOTTLE COFFEE (藍瓶咖啡)</div>
-        <span class="food-tag">精品咖啡</span>
-        <div class="food-desc">警固神社旁，質感木造風格店面。</div>
-      </div>
-      <a href="https://maps.google.com/?q=BlueBottleCoffee福岡天神" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-  </div>
-
-  <!-- 中洲川端地區列表區塊 -->
-  <div id="nakasuArea" class="area-section">
-    <div class="area-header">中洲川端地區 店家與地標導覽</div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">一蘭拉麵 (總本店)</div>
-        <span class="food-tag">地標打卡 / 24HR營業</span>
-        <div class="food-desc">中洲地標級總本店，整棟紅色燈籠建築，適合拍照打卡與離峰時段用餐。</div>
-      </div>
-      <a href="https://maps.google.com/?q=一蘭拉麵總本店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Mitsui Garden HOTEL (博多三井花園飯店)</div>
-        <span class="food-tag">住宿飯店</span>
-        <div class="food-desc">鄰近櫛田神社前站，交通便捷。</div>
-      </div>
-      <a href="https://maps.google.com/?q=MitsuiGardenHotelFukuokaGion" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Pain Stock Tenjin (パンストック)</div>
-        <span class="food-tag">人氣麵包</span>
-        <div class="food-desc">超高人氣明太子法國麵包名店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=PainStockTenjin" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">元祖博多明太重</div>
-        <span class="food-tag">明太子料理</span>
-        <div class="food-desc">福岡第一家明太子專賣店，招牌明太重。</div>
-      </div>
-      <a href="https://maps.google.com/?q=元祖博多明太重" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">中洲屋台橫丁</div>
-        <span class="food-tag">夜市屋台</span>
-        <div class="food-desc">沿河岸的日式夜市攤販，體驗夜生活文化。</div>
-      </div>
-      <a href="https://maps.google.com/?q=中洲屋台" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">鈴懸 (博多本店)</div>
-        <span class="food-tag">和菓子/甜點</span>
-        <div class="food-desc">老字號日式精緻和菓子名店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=鈴懸博多本店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">櫛田神社</div>
-        <span class="food-tag">景點/神社</span>
-        <div class="food-desc">博多總鎮守，博多祇園山笠祭發源地。</div>
-      </div>
-      <a href="https://maps.google.com/?q=櫛田神社" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">信州そば (信州蕎麥麵)</div>
-        <span class="food-tag">蕎麥麵</span>
-        <div class="food-desc">櫛田神社周邊傳統手工蕎麥麵。</div>
-      </div>
-      <a href="https://maps.google.com/?q=信州そば櫛田神社" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">FULL FULL 博多 (FULLFULL)</div>
-        <span class="food-tag">人氣麵包店</span>
-        <div class="food-desc">櫛田神社前站周邊的經典明太子法國麵包。</div>
-      </div>
-      <a href="https://maps.google.com/?q=FULLFULL博多" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Bread, Espresso & Hakata</div>
-        <span class="food-tag">早午餐/烘焙</span>
-        <div class="food-desc">來自東京的人氣吐司與烘焙咖啡館。</div>
-      </div>
-      <a href="https://maps.google.com/?q=BreadEspresso&Hakata" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">如水庵</div>
-        <span class="food-tag">筑紫餅/和菓子</span>
-        <div class="food-desc">福岡代表性伴手禮筑紫餅老店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=如水庵博多本店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-  </div>
-
-  <!-- 博多車站地區列表區塊 -->
-  <div id="hakataArea" class="area-section">
-    <div class="area-header">博多車站地區 店家與地標導覽</div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">喜水丸 (博多一番街店)</div>
-        <span class="food-tag">海鮮定食 / 明太子吃到飽</span>
-        <div class="food-desc">博多車站 B1 一番街超人氣名店，早餐即有新鮮刺身與明太子無限享用。</div>
-      </div>
-      <a href="https://maps.google.com/?q=喜水丸博多一番街店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Mignon (il FORNO del MIGNON)</div>
-        <span class="food-tag">排隊名店 / 迷你可頌</span>
-        <div class="food-desc">博多車站改札口前遠遠就能聞到香味的排隊人氣迷你可頌專賣店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=ilFORNOdelMIGNON博多店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">LeClerc (ル・クレール)</div>
-        <span class="food-tag">法式洋菓子 / 伴手禮</span>
-        <div class="food-desc">博多車站內精緻法式甜點與手工餅乾名店，極具質感的伴手禮選擇。</div>
-      </div>
-      <a href="https://maps.google.com/?q=LeClerc博多" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Nom repas timbre</div>
-        <span class="food-tag">特色餐飲 / 站內美食</span>
-        <div class="food-desc">博多車站內氣氛佳的精緻餐食選擇，適合搭車前後享用。</div>
-      </div>
-      <a href="https://maps.google.com/?q=Nomrepastimbre博多" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Café Matsukado (カフェマツカド)</div>
-        <span class="food-tag">車站咖啡 / 輕食甜點</span>
-        <div class="food-desc">博多站內極具溫馨氣氛的咖啡角落，提供香醇咖啡與精緻手作甜點。</div>
-      </div>
-      <a href="https://maps.google.com/?q=CafeMatsukado博多" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">千鳥屋本家 (DEITOS店)</div>
-        <span class="food-tag">九州老字號 / 銘菓伴手禮</span>
-        <div class="food-desc">博多DEITOS 1F，以千鳥饅頭與Tirolian（チロリアン）捲心餅聞名的傳統銘菓店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=千鳥屋本家博多DEITOS" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">AMU PLAZA 博多</div>
-        <span class="food-tag">購物商場 / UGG 專櫃</span>
-        <div class="food-desc">車站共構商場，3F 有 Traditional Weatherwear，5F 有 UGG 專櫃。</div>
-      </div>
-      <a href="https://maps.google.com/?q=AMU+PLAZA+博多" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">博多阪急百貨</div>
-        <span class="food-tag">精品百貨 / 伴手禮</span>
-        <div class="food-desc">與博多站直通，B1 伴手禮街與各式甜點名店聚集。</div>
-      </div>
-      <a href="https://maps.google.com/?q=博多阪急" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">KITTE 博多 / OIOI 0101</div>
-        <span class="food-tag">購物 / 餐廳街</span>
-        <div class="food-desc">車站旁複合式商場，B1與9-10F美食街有 Shin-Shin 拉麵等多家名店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=KITTE博多" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">博多銘品館 (MING 商店街)</div>
-        <span class="food-tag">伴手禮/名產</span>
-        <div class="food-desc">博多車站內最大名產街，營業至 21:00，採買伴手禮極方便。</div>
-      </div>
-      <a href="https://maps.google.com/?q=博多車站MING" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-
-    <div class="food-card">
-      <div class="food-info">
-        <div class="food-title">Shin-Shin 拉麵 (KITTE博多店)</div>
-        <span class="food-tag">博多拉麵</span>
-        <div class="food-desc">位於 KITTE 博多 B1，博多站想吃 Shin-Shin 的首選分店。</div>
-      </div>
-      <a href="https://maps.google.com/?q=ShinShin拉麵KITTE博多店" target="_blank" class="btn-map">地圖 🗺️</a>
-    </div>
-  </div>
 
 </div>
-
-<!-- 圖片放大燈箱 modal -->
-<div id="lightbox" class="modal" onclick="closeLightbox()">
-  <img id="lightboxImg" src="" alt="放大地圖">
-</div>
-
-<script>
-  // 切換地圖圖片、對應區域列表與按鈕高亮
-  function changeMap(imgSrc, areaId, btnElement) {
-    document.getElementById('currentMap').src = imgSrc;
-    
-    // 切換按鈕高亮樣式
-    const buttons = document.querySelectorAll('.tab-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    btnElement.classList.add('active');
-
-    // 切換下方的店家清單區塊
-    const sections = document.querySelectorAll('.area-section');
-    sections.forEach(sec => sec.classList.remove('active'));
-    document.getElementById(areaId).classList.add('active');
-  }
-
-  // 避免檔名大小寫或副檔名造成破圖的備用處理機制
-  function handleImgError(img) {
-    if (img.src.includes('IMG_0379')) {
-      if (img.src.endsWith('.png')) {
-        img.src = 'IMG_0379.JPG';
-      } else if (img.src.endsWith('.JPG')) {
-        img.src = 'IMG_0379.jpg';
-      } else if (img.src.endsWith('.jpg')) {
-        img.src = 'IMG_0379.PNG';
-      }
-    } else if (img.src.endsWith('1.jpg')) {
-      img.src = '1.png';
-    } else if (img.src.endsWith('1.png')) {
-      img.src = '1.PNG';
-    }
-  }
-
-  // 開啟燈箱放大
-  function openLightbox(src) {
-    document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightbox').style.display = 'flex';
-  }
-
-  // 關閉燈箱
-  function closeLightbox() {
-    document.getElementById('lightboxImg').src = '';
-    document.getElementById('lightbox').style.display = 'none';
-  }
-</script>
 
 </body>
 </html>
