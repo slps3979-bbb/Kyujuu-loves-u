@@ -1,100 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>福岡美食相對位置地圖</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', sans-serif;
-    }
-    body {
-      background-color: #f8fafc;
-      margin: 0;
-      padding: 12px;
-      color: #334155;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding-bottom: 40px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>福岡美食相對位置地圖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #a8000b;
+            --soft-pink-bg: rgba(255, 235, 238, 0.88);
+            --text-dark: #3e2723;
+        }
 
-    /* 頂部導覽列 */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding: 4px 0;
-    }
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      background: #ffffff;
-      color: #a8000b;
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      border: 2px solid #ffcdd2;
-    }
-    h1 {
-      font-size: 1.2rem;
-      margin: 0;
-      color: #a8000b;
-      font-weight: 900;
-    }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    /* 區域切換按鈕區 */
-    .map-tabs {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 8px 6px;
-      border: 2px solid #ffcdd2;
-      border-radius: 12px;
-      background-color: #ffffff;
-      color: #a8000b;
-      font-size: 0.8rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-      text-align: center;
-    }
-    .tab-btn.active {
-      background-color: #a8000b;
-      color: #ffffff;
-      border-color: #a8000b;
-      box-shadow: 0 3px 8px rgba(168,0,11,0.25);
-    }
+        body {
+            font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', sans-serif;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('cherry.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text-dark);
+        }
 
-    /* 相對位置示意圖區塊 */
-    .map-card {
-      background: white;
-      padding: 10px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      text-align: center;
-      margin-bottom: 20px;
-      border: 2px solid #ffffff;
-    }
-    .map-img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-      cursor: pointer;
-      display: block;
-    }
-    
+        .container {
+            max-width: 480px;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* 頂部導覽列 */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            
